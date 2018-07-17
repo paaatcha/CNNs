@@ -6,7 +6,7 @@ As the datasets are too big, I dind't include them here.
 If you find some bug or have any comments, please email me.
 
 
-Dependencies: 
+## Dependencies: 
 * TensorFlow
 * Keral
 * NumPy
