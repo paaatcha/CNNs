@@ -146,8 +146,6 @@ val_data, val_dataset = get_dataset_tf (paths_val, labels_val, False, params, sc
 paths_test, labels_test, scalar_feat_test, dict_labels_test = get_path_and_labels_from_folders (path_test, 'txt')
 test_data, test_dataset = get_dataset_tf (paths_test, labels_test, False, params, scalar_feat=scalar_feat_test)   
 
-
-
 #with tf.Session() as sess:
 #    sess.run(train_data['iterator_init_op'])
 ##    print (sess.run(train_data['scalar_feat']))

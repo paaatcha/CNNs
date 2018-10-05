@@ -17,6 +17,18 @@ sys.path.append('/home/labcin/CODIGOS/utils/')
 from utils_img import create_dirs, split_folders_train_test_val
 
 
+
+def get_analysis (filepath, dropna=True):    
+    pd_dataset = pd.read_csv(filepath)   
+    if (dropna):        
+        # Tirando qualquer linha que possua um NaN
+        pd_dataset = pd_dataset.dropna()
+    
+    feat_names = ['Cocou', 'Cresceu', 'Doeu', 'Mudou', 'Sangrou', 'Relevo', 'Idade']
+    pd_dataset[feat_names] = pd_dataset[feat_names].replace(['N','S'], [0,1])
+        
+    print (pd_dataset.head())
+
 '''
     This function just counts the amount of samples for each diagnostic
     Input:
@@ -195,6 +207,8 @@ def cp_images (filepath, dict_data, labels, colorspace='RGB', name_main_folder='
         print ("##################")
     
 
+
+get_analysis("/home/labcin/AndrePacheco/Datasets/PAD/dataset.csv")
 
 #feat = ['Cocou', 'Cresceu', 'Doeu', 'Mudou', 'Sangrou', 'Relevo', 'Idade']
 #val_labs = ['CARCINOMA BASO CELULAR C80', 'CARCINOMA ESPINO CELULAR C44.9', 'CERATOACANTOMA D23', 'CERATOSE ACTINICA L57.0', 
