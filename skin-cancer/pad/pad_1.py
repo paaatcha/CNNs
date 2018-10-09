@@ -62,14 +62,14 @@ def evaluate_model (filepath, model, dataset, n_samples):
     # Print test accuracy
     print('\n', 'Test accuracy:', score[1])    
     
-def predict_model (filepath, model, dataset, n_samples):
+def predict_model (filepath, model, dataset, n_samples, bs):
     
     model.load_weights(filepath)
     
-    print ("\n%%%%%%{} | {} | {}%%%%%%%%\n".format(n_samples,BATCH_SIZE,n_samples // BATCH_SIZE))
+    print ("\n######### {} | {} | {} ###########\n".format(n_samples,bs,n_samples // bs))
     
     # Evaluate the model on test set
-    pred = model.predict(dataset, steps=n_samples // BATCH_SIZE)
+    pred = model.predict(dataset, steps=n_samples // bs)
     
     return pred     
     
@@ -133,40 +133,43 @@ params = {
         }
 
 
-paths_train, labels_train, scalar_feat_train, dict_labels_train = get_path_and_labels_from_folders (path_train, 'txt')
-train_data, train_dataset = get_dataset_tf (paths_train, labels_train, True, params, scalar_feat=scalar_feat_train)
+paths_train, labels_train, scalar_feat_train, dict_labels_train = get_path_and_labels_from_folders (path_train)
+train_data, train_dataset = get_dataset_tf (paths_train, labels_train, True, params)
 
 params['shuffle'] = False
-params['batch_size'] = 10
+params['batch_size'] = 7
 
-paths_val, labels_val, scalar_feat_val, dict_labels_val = get_path_and_labels_from_folders (path_val, 'txt')
-val_data, val_dataset = get_dataset_tf (paths_val, labels_val, False, params, scalar_feat=scalar_feat_val)
+paths_val, labels_val, scalar_feat_val, dict_labels_val = get_path_and_labels_from_folders (path_val)
+val_data, val_dataset = get_dataset_tf (paths_val, labels_val, False, params)
 
 
-paths_test, labels_test, scalar_feat_test, dict_labels_test = get_path_and_labels_from_folders (path_test, 'txt')
-test_data, test_dataset = get_dataset_tf (paths_test, labels_test, False, params, scalar_feat=scalar_feat_test)   
+paths_test, labels_test, scalar_feat_test, dict_labels_test = get_path_and_labels_from_folders (path_test)
+test_data, test_dataset = get_dataset_tf (paths_test, labels_test, False, params)   
 
 #with tf.Session() as sess:
 #    sess.run(train_data['iterator_init_op'])
 ##    print (sess.run(train_data['scalar_feat']))
 #    print (sess.run(train_data['scalar_feat']).shape)
 
-#if (TRAIN):
-#    model = keras_model()
-#    model = training (model, train_dataset, val_dataset, len(paths_train), len(paths_val))
-#    
-#else:
-#    model = load_model ('best_model_88.hdf5')
-#    
-#
-#evaluate_model(FILEPATH, model, test_dataset, len(paths_test))    
-#pred = predict_model (FILEPATH, model, test_dataset, len(paths_test))    
-#    
-#n_sam = len(pred)
-#print (n_sam)
-#cm = confusion_matrix(labels_test[0:n_sam].argmax(axis=1),pred.argmax(axis=1))
-#print (cm)
-#
-#labels_name = list(sorted(dict_labels_test.items(), key=lambda v: v[1]))
-#print (classification_report(labels_test[0:n_sam].argmax(axis=1),pred.argmax(axis=1)))
-#plot_conf_matrix (cm, labels_name, normalize=True)
+if (TRAIN):
+    model = keras_model()
+    model = training (model, train_dataset, val_dataset, len(paths_train), len(paths_val))
+    
+else:
+    model = load_model ('best_model_88.hdf5')
+    
+
+
+pred = predict_model (FILEPATH, model, test_dataset, len(paths_test), params['batch_size'])    
+evaluate_model(FILEPATH, model, test_dataset, len(paths_test))    
+    
+n_sam = len(pred)
+print (n_sam)
+
+
+cm = confusion_matrix(labels_test[0:n_sam].argmax(axis=1),pred.argmax(axis=1))
+print (cm)
+
+labels_name = list(sorted(dict_labels_test.items(), key=lambda v: v[1]))
+print (classification_report(labels_test[0:n_sam].argmax(axis=1),pred.argmax(axis=1)))
+plot_conf_matrix (cm, labels_name, normalize=True)

@@ -1,7 +1,7 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-A CNN model to tackle the Signs dataset using tf.keras
+The CNN training block
 
 Author: André Pacheco
 Email: pacheco.comp@gmail.com
@@ -14,6 +14,7 @@ from __future__ import division
 import tensorflow as tf
 import os
 from tqdm import trange
+from cnn_evaluate import evaluate_sess
 
 
 """Train the model on `num_steps` batches

@@ -2,5 +2,6 @@
 /examples/signs/*.hdf5
 /examples/fashion_mnist/Graph/8
 /examples/fashion_mnist/*.hdf5
-/skin-cancer/pad/Graph/8
+/skin-cancer/pad/Graph/*
 /skin-cancer/pad/*.hdf5
+/skin-cancer/pad/Modelo/*

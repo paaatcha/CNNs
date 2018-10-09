@@ -1,7 +1,8 @@
 #!/usr/bin/env python2
 # -*- coding: utf-8 -*-
 """
-A CNN model to tackle the Signs dataset using tf.keras
+The CNN build blocks model. If you'd like to change your model, you need to edit 
+this files
 
 Author: André Pacheco
 Email: pacheco.comp@gmail.com
@@ -100,18 +101,18 @@ def build_model (dict_input, params, is_train, verbose=True):
         print_summary_model (out, verbose=verbose)
         
     with tf.variable_scope('block_fc2'):
-        logits = tf.layers.dense(inputs=out, units=params['classes'], activation=tf.nn.relu)
+        logits = tf.layers.dense(inputs=out, units=params['num_labels'], activation=tf.nn.relu)
         print_summary_model (logits, last=True, verbose=verbose)
         
     return logits
     
 
-def model (dict_input, params, is_train, model_name="model", verbose=True):    
+def model (dict_input, params, is_train, verbose=True):    
     
     labels = dict_input['labels']
     
-    with tf.variable_scope(model_name, reuse = not is_train):
-        logits = build_model (dict_input, params, is_train, verbose=True)
+    with tf.variable_scope('model', reuse = not is_train):
+        logits = build_model (dict_input, params, is_train, verbose=verbose)
         predictions = tf.argmax(logits, 1)
         
     loss = tf.losses.sparse_softmax_cross_entropy(labels=labels, logits=logits)
@@ -180,22 +181,22 @@ def model (dict_input, params, is_train, model_name="model", verbose=True):
 
 
 
-# Resetando o grafo para rodar aqui no spyder
-tf.reset_default_graph()
-
-images = tf.Variable(tf.ones([2,64,64,3]))
-feats = tf.Variable(tf.ones([2,7]))
-dict_input = {'images': images, 'labels': np.array([1,0]), 'scalar_feat': feats}
-params = {'classes': 5, 'learning_rate': 0.001, 'batch_norm': True, 'num_labels': 2}
-
-model_spec_train = model(dict_input, params, True)
-
-model_spec_val = model(dict_input, params, False, verbose=False)
-
-
-with tf.Session() as sess:
-    sess.run(tf.global_variables_initializer())
-    print (sess.run(model_spec_train['accuracy']))
+## Resetando o grafo para rodar aqui no spyder
+#tf.reset_default_graph()
+#
+#images = tf.Variable(tf.ones([2,64,64,3]))
+#feats = tf.Variable(tf.ones([2,7]))
+#dict_input = {'images': images, 'labels': np.array([1,0]), 'scalar_feat': feats}
+#params = {'classes': 5, 'learning_rate': 0.001, 'batch_norm': True, 'num_labels': 2}
+#
+#model_spec_train = model(dict_input, params, True)
+#
+#model_spec_val = model(dict_input, params, False, verbose=False)
+#
+#
+#with tf.Session() as sess:
+#    sess.run(tf.global_variables_initializer())
+#    print (sess.run(model_spec_train['accuracy']))
 
 
 

@@ -208,18 +208,17 @@ def cp_images (filepath, dict_data, labels, colorspace='RGB', name_main_folder='
     
 
 
-get_analysis("/home/labcin/AndrePacheco/Datasets/PAD/dataset.csv")
+#get_analysis("/home/labcin/AndrePacheco/Datasets/PAD/dataset.csv")
 
-#feat = ['Cocou', 'Cresceu', 'Doeu', 'Mudou', 'Sangrou', 'Relevo', 'Idade']
-#val_labs = ['CARCINOMA BASO CELULAR C80', 'CARCINOMA ESPINO CELULAR C44.9', 'CERATOACANTOMA D23', 'CERATOSE ACTINICA L57.0', 
-#       'CERATOSE SEBORREICA L82', 'CORNO CUTANEO L75.8', 'LENTIGO MALIGNO D03.9', 'MELANOMA C43.9', 'NEVO MELANOCITICO D22.9']
+feat = ['Cocou', 'Cresceu', 'Doeu', 'Mudou', 'Sangrou', 'Relevo', 'Idade']
+val_labs = ['CARCINOMA BASO CELULAR C80', 'CARCINOMA ESPINO CELULAR C44.9', 'CERATOACANTOMA D23', 'CERATOSE ACTINICA L57.0', 
+       'CERATOSE SEBORREICA L82', 'CORNO CUTANEO L75.8', 'LENTIGO MALIGNO D03.9', 'MELANOMA C43.9', 'NEVO MELANOCITICO D22.9']
 
-#dados, labels = get_dict_data("/home/labcin/AndrePacheco/Datasets/PAD/dataset.csv", feat, valid_labels=val_labs)
-#cp_images ('/home/labcin/AndrePacheco/Datasets/PAD/imgs/*.jpg', dados, val_labs, name_main_folder='/home/labcin/AndrePacheco/Datasets/PAD/img_per_folders', verbose=True)
+dados, labels = get_dict_data("/home/labcin/AndrePacheco/Datasets/PAD/dataset.csv", feat, valid_labels=val_labs)
+cp_images ('/home/labcin/AndrePacheco/Datasets/PAD/imgs/*.jpg', dados, val_labs, name_main_folder='/home/labcin/AndrePacheco/Datasets/PAD/img_per_folders', verbose=True)
 
-
-#create_dirs('/home/labcin/AndrePacheco/Datasets/PAD/pad_menor_splited', )
-#split_folders_train_test_val ('/home/labcin/AndrePacheco/Datasets/PAD/img_per_folders', '/home/labcin/AndrePacheco/Datasets/PAD/pad_menor_splited', scalar_feat='txt')
+create_dirs('/home/labcin/AndrePacheco/Datasets/PAD/pad_menor_splited', val_labs, True)
+split_folders_train_test_val ('/home/labcin/AndrePacheco/Datasets/PAD/img_per_folders', '/home/labcin/AndrePacheco/Datasets/PAD/pad_menor_splited', scalar_feat_ext='txt')
 
 
 
