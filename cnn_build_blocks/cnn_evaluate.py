@@ -15,7 +15,8 @@ import tensorflow as tf
 #from model.utils import save_dict_to_json
 
 
-"""Train the model on `num_steps` batches.
+"""
+    Train the model on `num_steps` batches.
 
     Args:
         sess: (tf.Session) current session

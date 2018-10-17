@@ -118,12 +118,12 @@ params = {
         }
 
 
-paths_train, labels_train, dict_labels_train = get_path_and_labels_from_folders ('/home/labcin/AndrePacheco/Datasets/SIGNS/TRAIN')
+paths_train, labels_train, _, dict_labels_train = get_path_and_labels_from_folders ('/home/labcin/AndrePacheco/Datasets/SIGNS/TRAIN')
 train_data, train_dataset = get_dataset_tf (paths_train, labels_train, True, params)
 
 params['shuffle'] = False
 
-paths_test, labels_test, dict_labels_test = get_path_and_labels_from_folders ('/home/labcin/AndrePacheco/Datasets/SIGNS/TEST')
+paths_test, labels_test, _, dict_labels_test = get_path_and_labels_from_folders ('/home/labcin/AndrePacheco/Datasets/SIGNS/TEST')
 test_data, test_dataset = get_dataset_tf (paths_test, labels_test, False, params)    
 
 model = keras_model()
